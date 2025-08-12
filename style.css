@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&family=Dancing+Script:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 248, 240, 0.9) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(245, 237, 220, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(248, 244, 232, 0.7) 0%, transparent 50%),
+        linear-gradient(135deg, #fdfcf8 0%, #f8f4e8 25%, #f5f1e5 50%, #f2ede0 75%, #efead8 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    position: relative;
+}
+
+/* Subtle texture overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 116, 91, 0.01) 2px,
+            rgba(139, 116, 91, 0.01) 4px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.notebook-background {
+    position: relative;
+    max-width: 550px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.torn-paper {
+    position: relative;
+    background: 
+        linear-gradient(135deg, #ffffff 0%, #fefefe 30%, #fdfdfd 70%, #fafafa 100%);
+    width: 100%;
+    max-width: 480px;
+    min-height: 380px;
+    padding: 50px 45px;
+    border-radius: 0;
+    box-shadow: 
+        0 20px 60px rgba(139, 116, 91, 0.15),
+        0 8px 20px rgba(139, 116, 91, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transform: rotate(-0.8deg);
+    border: 1px solid rgba(139, 116, 91, 0.08);
+    
+    /* More elegant torn edges */
+    clip-path: polygon(
+        0% 2%,
+        97% 0%,
+        99% 3%,
+        100% 7%,
+        98% 11%,
+        100% 16%,
+        96% 20%,
+        100% 25%,
+        97% 30%,
+        100% 36%,
+        95% 42%,
+        100% 48%,
+        98% 54%,
+        100% 60%,
+        96% 66%,
+        100% 72%,
+        97% 78%,
+        100% 84%,
+        98% 90%,
+        100% 96%,
+        95% 100%,
+        3% 98%,
+        1% 94%,
+        0% 90%,
+        2% 86%,
+        0% 81%,
+        4% 76%,
+        0% 70%,
+        3% 64%,
+        0% 58%,
+        5% 52%,
+        0% 46%,
+        2% 40%,
+        0% 34%,
+        4% 28%,
+        0% 22%,
+        3% 16%,
+        0% 10%,
+        2% 6%
+    );
+}
+
+.paper-texture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(139, 116, 91, 0.03) 1px, transparent 1px),
+        radial-gradient(circle at 70% 70%, rgba(158, 134, 108, 0.025) 1px, transparent 1px),
+        radial-gradient(circle at 45% 15%, rgba(139, 116, 91, 0.02) 0.5px, transparent 0.5px);
+    background-size: 120px 120px, 180px 180px, 90px 90px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.handwritten-message {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6em;
+    font-weight: 500;
+    color: #2d2520;
+    line-height: 1.5;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(0.3deg);
+    letter-spacing: 0.3px;
+}
+
+/* Subtle imperfections */
+.ink-smudge {
+    position: absolute;
+    background: radial-gradient(ellipse, rgba(139, 116, 91, 0.08) 0%, rgba(139, 116, 91, 0.04) 50%, transparent 70%);
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.ink-smudge-1 {
+    width: 6px;
+    height: 9px;
+    top: 90px;
+    right: 70px;
+    transform: rotate(20deg);
+}
+
+.ink-smudge-2 {
+    width: 4px;
+    height: 6px;
+    bottom: 110px;
+    left: 60px;
+    transform: rotate(-12deg);
+}
+
+.coffee-stain {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background: radial-gradient(circle, rgba(158, 134, 108, 0.08) 0%, rgba(139, 116, 91, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    bottom: 80px;
+    right: 90px;
+    z-index: 1;
+}
+
+.coffee-stain::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, rgba(139, 116, 91, 0.05) 0%, transparent 50%);
+    border-radius: 50%;
+}
+
+.signature {
+    margin-top: 35px;
+    transform: rotate(0.4deg);
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1em;
+    color: #6b5b4f;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+.teasing-note {
+    margin-top: 15px;
+    transform: rotate(-0.3deg);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75em;
+    color: #8a7a6e;
+    font-weight: 400;
+    opacity: 0.75;
+    max-width: 400px;
+    text-align: center;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+.emergency-contact {
+    margin-top: 25px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border: 1px solid rgba(139, 116, 91, 0.1);
+    transform: rotate(0.2deg);
+    max-width: 380px;
+}
+
+.emergency-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #6b5b4f;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.contact-info {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7em;
+    color: #8a7a6e;
+    margin: 4px 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+.video-call-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65em;
+    color: #8a7a6e;
+    margin-top: 6px;
+    text-align: center;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.new-note-btn {
+    background: linear-gradient(135deg, #6b5b4f 0%, #5a4a3e 100%);
+    color: #fdfcf8;
+    border: none;
+    padding: 14px 32px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95em;
+    font-weight: 500;
+    border-radius: 24px;
+    cursor: pointer;
+    margin-top: 30px;
+    box-shadow: 
+        0 8px 25px rgba(107, 91, 79, 0.2),
+        0 3px 8px rgba(107, 91, 79, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: rotate(-0.2deg);
+    border: 1px solid rgba(107, 91, 79, 0.1);
+    letter-spacing: 0.2px;
+}
+
+.new-note-btn:hover {
+    transform: rotate(-0.2deg) translateY(-2px);
+    box-shadow: 
+        0 12px 35px rgba(107, 91, 79, 0.25),
+        0 5px 12px rgba(107, 91, 79, 0.2);
+    background: linear-gradient(135deg, #5a4a3e 0%, #4a3a2e 100%);
+}
+
+.new-note-btn:active {
+    transform: rotate(-0.2deg) translateY(0px);
+    box-shadow: 
+        0 6px 20px rgba(107, 91, 79, 0.2),
+        0 2px 6px rgba(107, 91, 79, 0.15);
+}
+
+/* Animation for message changes */
+.fade-out {
+    opacity: 0;
+    transform: translateY(-10px) rotate(0.5deg);
+    transition: all 0.3s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0) rotate(0.5deg);
+    transition: all 0.5s ease;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .torn-paper {
+        padding: 40px 35px;
+        margin: 15px;
+        min-height: 340px;
+        max-width: 450px;
+    }
+    
+    .handwritten-message {
+        font-size: 1.4em;
+        min-height: 200px;
+    }
+    
+    .signature {
+        font-size: 1em;
+        margin-top: 30px;
+    }
+    
+    .teasing-note {
+        font-size: 0.7em;
+        margin-top: 12px;
+        max-width: 350px;
+    }
+    
+    .emergency-contact {
+        max-width: 340px;
+        padding: 12px 16px;
+        margin-top: 20px;
+    }
+    
+    .emergency-title {
+        font-size: 0.75em;
+    }
+    
+    .contact-info {
+        font-size: 0.65em;
+    }
+    
+    .video-call-note {
+        font-size: 0.6em;
+    }
+    
+    .new-note-btn {
+        font-size: 0.9em;
+        padding: 12px 28px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 20px;
+    }
+    
+    .handwritten-message {
+        font-size: 1.3em;
+        min-height: 180px;
+    }
+    
+    .torn-paper {
+        min-height: 320px;
+        padding: 35px 30px;
+    }
+    
+    .signature {
+        font-size: 0.95em;
+    }
+    
+    .teasing-note {
+        font-size: 0.65em;
+        margin-top: 10px;
+        max-width: 320px;
+    }
+    
+    .emergency-contact {
+        max-width: 300px;
+        padding: 10px 14px;
+        margin-top: 18px;
+    }
+    
+    .emergency-title {
+        font-size: 0.7em;
+    }
+    
+    .contact-info {
+        font-size: 0.6em;
+    }
+    
+    .video-call-note {
+        font-size: 0.55em;
+    }
+}
+
+/* Click anywhere functionality visual feedback */
+.torn-paper:hover {
+    cursor: pointer;
+}
+
+.torn-paper:active {
+    transform: rotate(-0.8deg) scale(0.99);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
